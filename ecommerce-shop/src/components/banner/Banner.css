@@ -1,0 +1,63 @@
+.offers{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    margin: auto;
+    padding: 0px 140px;
+    margin-bottom: 150px;
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+}
+.offers-left{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.offers-left h1{
+    color: #171717;
+    font-size: 60px;
+    font-weight: 600;
+}
+.offers-left p{
+    color: #171717;
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 600;
+}
+.offers-left button {
+    width: 230px;
+    height: 50px;
+    border-radius: 35px;
+    background: #a1a1aa;
+    border: 2px solid black; /* Set the border to black */
+    color: white;
+    margin-left: 30px;
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 50px;
+    cursor: pointer;
+    outline: none; /* Optional: Remove default button outline */
+}
+
+.offers-right{
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 50px;
+}
+.offers-right img {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }

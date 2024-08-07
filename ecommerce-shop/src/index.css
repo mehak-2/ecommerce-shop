@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:active,
+input:focus,
+select:focus,
+option:focus {
+  outline: 1px lightcoral solid;
+  cursor: pointer;
+}
+
+.nav-anim:hover {
+  text-decoration: underline;
+  color: red;
+  text-underline-offset: 10px;
+}
+
+/* body {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+} */
+
+.glass {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.go-up:hover{
+transform: translateY(-5px);
+transition: all 0.2s;
+}
