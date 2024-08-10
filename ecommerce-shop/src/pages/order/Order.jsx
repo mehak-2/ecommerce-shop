@@ -1,68 +1,167 @@
-import React, { useContext, useState } from "react";
-import MyContext from "../../context/data/myContext";
+// import React, { useContext } from "react";
+// import myContext from "../../context/data/myContext";
+// import Layout from "../../components/layout/Layout";
+// import Loader from "../../components/loader/Loader";
+
+// function Order() {
+//   const userid = JSON.parse(localStorage.getItem("user")).user.uid;
+//   const context = useContext(myContext);
+//   const { mode, loading, order } = context;
+//   return (
+//     <Layout>
+//       {loading && <Loader />}
+//       {order.length > 0 ? (
+//         <>
+//           <div className=" h-full pt-10">
+//             {order
+//               .filter((obj) => obj.userid == userid)
+//               .map((order) => {
+//                 // order.cartItems.map()
+//                 return (
+//                   <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+//                     {order.cartItems.map((item) => {
+//                       return (
+//                         <div className="rounded-lg md:w-2/3">
+//                           <div
+//                             className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
+//                             style={{
+//                               backgroundColor: mode === "dark" ? "#282c34" : "",
+//                               color: mode === "dark" ? "white" : "",
+//                             }}
+//                           >
+//                             <img
+//                               src={item.imageUrl}
+//                               alt="product-image"
+//                               className="w-full rounded-lg sm:w-40"
+//                             />
+//                             <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+//                               <div className="mt-5 sm:mt-0">
+//                                 <h2
+//                                   className="text-lg font-bold text-gray-900"
+//                                   style={{
+//                                     color: mode === "dark" ? "white" : "",
+//                                   }}
+//                                 >
+//                                   {item.title}
+//                                 </h2>
+//                                 <p
+//                                   className="mt-1 text-xs text-gray-700"
+//                                   style={{
+//                                     color: mode === "dark" ? "white" : "",
+//                                   }}
+//                                 >
+//                                   {item.description}
+//                                 </p>
+//                                 <p
+//                                   className="mt-1 text-xs text-gray-700"
+//                                   style={{
+//                                     color: mode === "dark" ? "white" : "",
+//                                   }}
+//                                 >
+//                                   {item.price}
+//                                 </p>
+//                                 <button className="text-sm"> <span className="bg-grady-300 px-1 rounded-md">Order Status :</span> <span className="bg-blue-200 px-2 py-1 rounded-md">Order Placed</span> </button>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         </div>
+//                       );
+//                     })}
+//                   </div>
+//                 );
+//               })}
+//           </div>
+//         </>
+//       ) : (
+//         <h2 className=" text-center tex-2xl text-white">Not Order</h2>
+//       )}
+//     </Layout>
+//   );
+// }
+
+// export default Order;
+
+import React, { useContext } from "react";
+import myContext from "../../context/data/myContext";
 import Layout from "../../components/layout/Layout";
 import Loader from "../../components/loader/Loader";
 
 function Order() {
-  const { loading, order, updateOrderStatus, getOrderById, currentOrder } = useContext(MyContext);
-  const [orderId, setOrderId] = useState("");
-
-  const handleSearch = () => {
-    getOrderById(orderId);
-  };
+  const userid = JSON.parse(localStorage.getItem("user")).user.uid;
+  const context = useContext(myContext);
+  const { mode, loading, order } = context;
 
   return (
     <Layout>
       {loading && <Loader />}
-      <div className="p-6">
-        <input
-          type="text"
-          value={orderId}
-          onChange={(e) => setOrderId(e.target.value)}
-          placeholder="Enter Order ID"
-          className="border p-2 rounded"
-        />
-        <button onClick={handleSearch} className="ml-4 px-4 py-2 bg-blue-500 text-white rounded">Search</button>
-
-        {currentOrder ? (
-          <div className="mt-6">
-            <h2 className="text-2xl font-bold">Order Details</h2>
-            <p><strong>ID:</strong> {currentOrder.id}</p>
-            <p><strong>Status:</strong> {currentOrder.status}</p>
-            <div className="mt-4">
-              {currentOrder.cartItems.map(item => (
-                <div key={item.id} className="mb-4">
-                  <img src={item.imageUrl} alt={item.title} className="w-32 h-32 object-cover" />
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p>{item.description}</p>
-                  <p>Price: {item.price}</p>
-                </div>
-              ))}
-            </div>
-            <button onClick={() => updateOrderStatus(currentOrder.id, 'Delivered')} className="mt-2 px-4 py-2 bg-green-500 text-white rounded">Mark as Delivered</button>
-            <button onClick={() => updateOrderStatus(currentOrder.id, 'Shipped')} className="mt-2 ml-2 px-4 py-2 bg-yellow-500 text-white rounded">Mark as Shipped</button>
-            <button onClick={() => updateOrderStatus(currentOrder.id, 'In Process')} className="mt-2 ml-2 px-4 py-2 bg-blue-500 text-white rounded">Mark as In Process</button>
-          </div>
-        ) : (
-          <div className="mt-6">
-            <h2 className="text-center text-2xl text-white">No Order Found</h2>
-            <div className="mt-4">
-              <h2 className="text-xl font-bold">All Orders</h2>
-              {order.length > 0 ? (
-                <ul>
-                  {order.map(o => (
-                    <li key={o.id} className="mb-2">
-                      <a href={`/order/${o.id}`} className="text-blue-500 underline">{o.id} - {o.status}</a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-center text-white">No orders available</p>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
+      {order.length > 0 ? (
+        <div className="h-full pt-10">
+          {order
+            .filter((obj) => obj.userid === userid)
+            .map((order) => (
+              <div
+                className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
+                key={order.id}
+              >
+                {order.cartItems.map((item) => (
+                  <div className="rounded-lg md:w-2/3" key={item.id}>
+                    <div
+                      className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
+                      style={{
+                        backgroundColor: mode === "dark" ? "#282c34" : "",
+                        color: mode === "dark" ? "white" : "",
+                      }}
+                    >
+                      <img
+                        src={item.imageUrl}
+                        alt="product-image"
+                        className="w-full rounded-lg sm:w-40"
+                      />
+                      <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                        <div className="mt-5 sm:mt-0">
+                          <h2
+                            className="text-lg font-bold text-gray-900"
+                            style={{
+                              color: mode === "dark" ? "white" : "",
+                            }}
+                          >
+                            {item.title}
+                          </h2>
+                          <p
+                            className="mt-1 text-xs text-gray-700"
+                            style={{
+                              color: mode === "dark" ? "white" : "",
+                            }}
+                          >
+                            {item.description}
+                          </p>
+                          <p
+                            className="mt-1 text-xs text-gray-700"
+                            style={{
+                              color: mode === "dark" ? "white" : "",
+                            }}
+                          >
+                            {item.price}
+                          </p>
+                          {/* <button className="text-sm">
+                            <span className="bg-gray-300 px-1 rounded-md">
+                              Order Status :
+                            </span>{" "}
+                            <span className="bg-blue-200 px-2 py-1 rounded-md">
+                              {order.status}
+                            </span>
+                          </button> */}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+        </div>
+      ) : (
+        <h2 className="text-center tex-2xl text-white">No Orders Found</h2>
+      )}
     </Layout>
   );
 }

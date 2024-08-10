@@ -9,7 +9,7 @@ function Footer() {
   const { mode } = context;
 
   const footerStyles = {
-    backgroundColor: "#707070", // Darker grey color for background
+    backgroundColor: "#FB5C03", // Darker grey color for background
     color: "white", // Set text color to white
   };
 
@@ -18,7 +18,7 @@ function Footer() {
   };
 
   return (
-    <div className="px-2">
+    <div className="">
   
       <div className="px-16 pt-10" style={footerStyles}>
         <div className="up sm:flex justify-around my-4">

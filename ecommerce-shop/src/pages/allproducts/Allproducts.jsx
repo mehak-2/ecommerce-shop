@@ -21,7 +21,7 @@ function Allproducts() {
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
-  console.log(cartItems);
+  // console.log(cartItems);
 
   const addCart = (product) => {
     dispatch(addToCart(product));
@@ -47,7 +47,10 @@ function Allproducts() {
             >
               Our Latest Collection
             </h1>
-            <div className="h-1 w-20  rounded" style={{backgroundColor: "#FB5C03"}}></div>
+            <div
+              className="h-1 w-20  rounded"
+              style={{ backgroundColor: "#FB5C03" }}
+            ></div>
           </div>
 
           <div className="flex flex-wrap -m-4">
@@ -68,27 +71,28 @@ function Allproducts() {
                     <div
                       className="h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out    border-gray-200 border-opacity-60 rounded-2xl overflow-hidden"
                       style={{
-                        backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "#f2f4fe",
+                        backgroundColor:
+                          mode === "dark" ? "rgb(46 49 55)" : "#f2f4fe",
                         color: mode === "dark" ? "white" : "#FB5C03",
                       }}
                     >
                       <div className="flex justify-center cursor-pointer">
-  <img
-    className="rounded-2xl w-full max-w-xs h-80 p-2 hover:scale-110 transition-transform duration-300 ease-in-out object-contain object-center mx-auto"
-    src={imageUrl}
-    alt="blog"
-  />
-</div>
+                        <img
+                          className="rounded-2xl w-full max-w-xs h-80 p-2 hover:scale-110 transition-transform duration-300 ease-in-out object-contain object-center mx-auto"
+                          src={imageUrl}
+                          alt="blog"
+                        />
+                      </div>
                       <div className="p-5 border-t-2">
                         <h2
                           className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
                           style={{ color: mode === "dark" ? "white" : "" }}
-                        >
-                       
-                        </h2>
+                        ></h2>
                         <h1
                           className="title-font text-lg font-medium text-gray-900 mb-3"
-                          style={{ color: mode === "dark" ? "white" : "#020a2b" }}
+                          style={{
+                            color: mode === "dark" ? "white" : "#020a2b",
+                          }}
                         >
                           {title}
                         </h1>
@@ -100,20 +104,25 @@ function Allproducts() {
                           ₹{price}
                         </p>
                         <div className=" flex justify-center">
-                        <button
-  type="button"
-  onClick={() => addCart(item)}
-  className="focus:outline-none text-white bg-gradient-to-r from-[#f4d3bf] to-[#2f4fe1] hover:bg-blue-500 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-60 py-2"
-style={{
-    background: "linear-gradient(to right, #f19257, #2f4fe1)",
-    transition: "background 0.3s ease-in-out",
-  }}
-  onMouseEnter={(e) => (e.target.style.background = "linear-gradient(to right, #ff0000, #0000ff)")}
-  onMouseLeave={(e) => (e.target.style.background = "linear-gradient(to right, #f19257, #2f4fe1)")}
->
-  Add To Cart
-</button>
-
+                          <button
+                            type="button"
+                            className="focus:outline-none text-white bg-gradient-to-r from-[#f4d3bf] to-[#2f4fe1] hover:bg-blue-500 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-60 py-2"
+                            style={{
+                              background:
+                                "linear-gradient(to right, #f19257, #2f4fe1)",
+                              transition: "background 0.3s ease-in-out",
+                            }}
+                            onMouseEnter={(e) =>
+                              (e.target.style.background =
+                                "linear-gradient(to right, #ff0000, #0000ff)")
+                            }
+                            onMouseLeave={(e) =>
+                              (e.target.style.background =
+                                "linear-gradient(to right, #f19257, #2f4fe1)")
+                            }
+                          >
+                            Buy now
+                          </button>
                         </div>
                       </div>
                     </div>

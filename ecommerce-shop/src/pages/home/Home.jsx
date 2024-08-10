@@ -1,15 +1,15 @@
-import React from 'react';
-import Layout from '../../components/layout/Layout';
-import HeroSection from '../../components/heroSection/HeroSection';
-import Filter from '../../components/filter/Filter';
-import ProductCard from '../../components/productCard/ProductCard';
-import Track from '../../components/track/Track';
-import Testimonial from '../../components/testimonial/Testimonial';
-import { Link } from 'react-router-dom';
-import Banner from '../../components/banner/Banner';
-import Popular from '../../components/popular/Popular';
-import Card from '../../components/Card/Card';
-import Categories from '../../components/Categories/Categories';
+import React from "react";
+import Layout from "../../components/layout/Layout";
+import HeroSection from "../../components/heroSection/HeroSection";
+import Filter from "../../components/filter/Filter";
+import ProductCard from "../../components/productCard/ProductCard";
+import Track from "../../components/track/Track";
+import Testimonial from "../../components/testimonial/Testimonial";
+import { Link } from "react-router-dom";
+import Banner from "../../components/banner/Banner";
+import Popular from "../../components/popular/Popular";
+import Card from "../../components/Card/Card";
+import Categories from "../../components/Categories/Categories";
 
 function Home() {
   return (
@@ -30,7 +30,7 @@ function Home() {
       <Banner />
       <hr style={styles.hr} />
       <br />
-      <Categories/>
+      <Categories />
       <hr style={styles.hr} />
       <Track />
       <br />
@@ -44,13 +44,11 @@ function Home() {
 
 const styles = {
   hr: {
-    
-        width: '80%', // Set the width of the line
-        border: 'none', // Remove default border
-        borderTop: '2px solid black', // Black line
-        height: '2px', // Line height
-        margin: '20px auto', // Center the line with auto margin
-
+    width: "80%", // Set the width of the line
+    border: "none", // Remove default border
+    borderTop: "2px solid blue", // blue line
+    height: "2px", // Line height
+    margin: "20px auto", // Center the line with auto margin
   },
 };
 

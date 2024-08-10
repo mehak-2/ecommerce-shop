@@ -13,26 +13,34 @@ function Cart() {
   const { mode } = context;
 
   const dispatch = useDispatch();
+
   const cartItems = useSelector((state) => state.cart);
+  console.log(cartItems);
 
   const deleteCart = (item) => {
     dispatch(deleteFromCart(item));
-    toast.success("Item removed from cart");
+    toast.success("Delete cart");
   };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmout, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    const temp = cartItems.reduce((acc, item) => acc + parseInt(item.price), 0);
+    let temp = 0;
+    cartItems.forEach((cartItem) => {
+      temp = temp + parseInt(cartItem.price);
+    });
     setTotalAmount(temp);
+    console.log(temp);
   }, [cartItems]);
 
-  const shipping = 100;
-  const grandTotal = shipping + totalAmount;
+  const shipping = parseInt(100);
+
+  const grandTotal = shipping + totalAmout;
+  // console.log(grandTotal)
 
   /**========================================================================
    *!                           Payment Integration
@@ -44,8 +52,18 @@ function Cart() {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const buyNow = async () => {
-    if (!name || !address || !pincode || !phoneNumber) {
-      return toast.error("All fields are required");
+    // Your existing validation code...
+    if (name === "" || address == "" || pincode == "" || phoneNumber == "") {
+      return toast.error("All fields are required", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     const addressInfo = {
@@ -60,6 +78,7 @@ function Cart() {
       }),
     };
 
+    // Your existing orderInfo without Razorpay...
     const orderInfo = {
       cartItems,
       addressInfo,
@@ -68,52 +87,120 @@ function Cart() {
         day: "2-digit",
         year: "numeric",
       }),
+      email: JSON.parse(localStorage.getItem("user")).user.email,
+      userid: JSON.parse(localStorage.getItem("user")).user.uid,
     };
 
-    const options = {
-      key: "YOUR_RAZORPAY_KEY",
-      amount: grandTotal * 100,
-      currency: "INR",
-      order_receipt: `order_rcptid_${name}`,
-      name: "E-Bharat",
-      description: "Test Transaction",
-      handler: async (response) => {
-        try {
-          await addDoc(collection(fireDB, 'orders'), { ...orderInfo, paymentId: response.razorpay_payment_id });
-          toast.success('Payment Successful');
-        } catch (error) {
-          console.error("Error adding document: ", error);
-        }
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
+    try {
+      const orderRef = collection(fireDB, "orders");
+      const docRef = await addDoc(orderRef, orderInfo);
 
-    const pay = new window.Razorpay(options);
-    pay.open();
+      // Retrieve the newly added document ID
+      const orderId = docRef.id;
+
+      // Clear the cart in your local storage or wherever it's stored
+      localStorage.setItem("cart", JSON.stringify([]));
+
+      // cartItems=[]
+      toast.success("Order placed successfully");
+
+      // Redirect to the home page (change the routing logic based on your setup)
+      // Example: window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to place the order");
+    }
   };
 
+  // const buyNow = async () => {
+  //   if (name === "" || address == "" || pincode == "" || phoneNumber == "") {
+  //     return toast.error("All fields are required", {
+  //       position: "top-center",
+  //       autoClose: 1000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "colored",
+  //     });
+  //   }
+
+  //   const addressInfo = {
+  //     name,
+  //     address,
+  //     pincode,
+  //     phoneNumber,
+  //     date: new Date().toLocaleString("en-US", {
+  //       month: "short",
+  //       day: "2-digit",
+  //       year: "numeric",
+  //     }),
+  //   };
+
+  //   var options = {
+  //     key: "",
+  //     key_secret: "",
+  //     amount: parseInt(grandTotal * 100),
+  //     currency: "INR",
+  //     order_receipt: "order_rcptid_" + name,
+  //     name: "Fusion",
+  //     description: "for testing purpose",
+  //     handler: function (response) {
+  //       console.log(response);
+  //       toast.success("Payment Successful");
+
+  //       const paymentId = response.razorpay_payment_id;
+
+  //       const orderInfo = {
+  //         cartItems,
+  //         addressInfo,
+  //         date: new Date().toLocaleString("en-US", {
+  //           month: "short",
+  //           day: "2-digit",
+  //           year: "numeric",
+  //         }),
+  //         email: JSON.parse(localStorage.getItem("user")).user.email,
+  //         userid: JSON.parse(localStorage.getItem("user")).user.uid,
+  //         paymentId,
+  //       };
+
+  //       try {
+  //         const orderRef = collection(fireDB, "order");
+  //         addDoc(orderRef, orderInfo);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     },
+
+  //     theme: {
+  //       color: "#3399cc",
+  //     },
+  //   };
+
+  //   var pay = new window.Razorpay(options);
+  //   pay.open();
+  //   console.log(pay);
+  // };
   return (
     <Layout>
       <div
-        className="bg-gray-100 pt-5 pb-[10%]"
+        className=" bg-red-100 pt-5 pb-[10%] "
         style={{
           backgroundColor: mode === "dark" ? "#282c34" : "",
           color: mode === "dark" ? "white" : "",
         }}
       >
-        <h1 className="mb-10 text-center text-4xl font-bold">Cart Items</h1>
-        <div className="mx-auto max-w-5xl px-6 md:flex md:space-x-6 xl:px-0">
-          <div className="rounded-lg md:w-2/3">
+        <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+        <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0 ">
+          <div className="rounded-lg md:w-2/3  ">
             {cartItems.map((item, index) => {
               const { title, price, description, imageUrl } = item;
               return (
                 <div
-                  key={index}
-                  className={`justify-between mb-6 rounded-lg border drop-shadow-xl p-6 sm:flex sm:justify-start transition-colors duration-300 ease-in-out hover:bg-gradient-to-r from-[#f5a979] to-[#7187ec] hover:text-white`}
+                  className="justify-between mb-6 rounded-lg border  drop-shadow-xl bg-white p-6  sm:flex  sm:justify-start"
                   style={{
-                    backgroundColor: mode === "dark" ? "rgb(32 33 34)" : "linear-gradient(to right, #f19257, #2f4fe1)",
+                    backgroundColor: mode === "dark" ? "rgb(32 33 34)" : "",
                     color: mode === "dark" ? "white" : "",
                   }}
                 >
@@ -123,14 +210,16 @@ function Cart() {
                     className="w-full rounded-lg sm:w-40"
                   />
                   <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                    <div className="mt-5 lg:mt-0">
+                    <div className="mt-5 sm:mt-0">
                       <h2
-                        className={`text-lg font-bold transition-colors duration-300 ease-in-out ${mode === "dark" ? "text-white" : "text-[#011F9E]"} group-hover:text-white`}
+                        className="text-lg font-bold text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
                       >
                         {title}
                       </h2>
                       <h2
-                        className={`text-sm ${mode === "dark" ? "text-white" : "text-white-900"} group-hover:text-white`}
+                        className="text-sm  text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
                       >
                         {description}
                       </h2>
@@ -184,7 +273,7 @@ function Cart() {
                 className="text-gray-700"
                 style={{ color: mode === "dark" ? "white" : "" }}
               >
-                ₹{totalAmount}
+                ₹{totalAmout}
               </p>
             </div>
             <div className="flex justify-between">
@@ -204,60 +293,35 @@ function Cart() {
             <hr className="my-4" />
             <div className="flex justify-between mb-3">
               <p
-                className="font-bold"
+                className="text-lg font-bold"
                 style={{ color: mode === "dark" ? "white" : "" }}
               >
                 Total
               </p>
-              <p
-                className="font-bold"
-                style={{ color: mode === "dark" ? "white" : "" }}
-              >
-                ₹{grandTotal}
-              </p>
+              <div className>
+                <p
+                  className="mb-1 text-lg font-bold"
+                  style={{ color: mode === "dark" ? "white" : "" }}
+                >
+                  ₹{grandTotal}
+                </p>
+              </div>
             </div>
-            <button
-              onClick={() => setModalOpen(true)}
-              className="w-full rounded bg-blue-500 py-2 text-white hover:bg-blue-600"
-            >
-              Proceed to Checkout
-            </button>
+            {/* <Modal  /> */}
+            <Modal
+              name={name}
+              address={address}
+              pincode={pincode}
+              phoneNumber={phoneNumber}
+              setName={setName}
+              setAddress={setAddress}
+              setPincode={setPincode}
+              setPhoneNumber={setPhoneNumber}
+              buyNow={buyNow}
+            />
           </div>
         </div>
       </div>
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-        <h2 className="mb-4 text-xl font-bold">Enter Address Details</h2>
-        <input
-          type="text"
-          placeholder="Name"
-          className="mb-2 p-2 border border-gray-300 rounded"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          className="mb-2 p-2 border border-gray-300 rounded"
-          onChange={(e) => setAddress(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Pincode"
-          className="mb-2 p-2 border border-gray-300 rounded"
-          onChange={(e) => setPincode(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Phone Number"
-          className="mb-2 p-2 border border-gray-300 rounded"
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
-        <button
-          onClick={buyNow}
-          className="w-full rounded bg-green-500 py-2 text-white hover:bg-green-600"
-        >
-          Confirm Order
-        </button>
-      </Modal>
     </Layout>
   );
 }

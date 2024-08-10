@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
-import logo from './logo.png'
+import logo from "./logo.png";
 
 function Navbar() {
   const context = useContext(myContext);
@@ -39,7 +39,7 @@ function Navbar() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-blue bg-opacity-25" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-40 flex">
@@ -72,18 +72,18 @@ function Navbar() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <Link
                     to={"/allproducts"}
-                    className=" text-sm font-medium text-gray-900 hover:text-red-400"
+                    className=" text-sm font-medium text-blue hover:text-orange"
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
                     All Products
                   </Link>
 
-                  {user ? (
+                  {user && user?.user?.email !== "mehak@gmail.com" ? (
                     <div className="flow-root">
                       <Link
                         to={"/order"}
                         style={{ color: mode === "dark" ? "white" : "" }}
-                        className=" -m-2 block p-2 font-medium text-gray-900"
+                        className=" -m-2 block p-2 font-medium text-blue"
                       >
                         Order
                       </Link>
@@ -92,11 +92,11 @@ function Navbar() {
                     ""
                   )}
 
-                  {user?.user?.email === "kangmehak@gmail.com" ? (
+                  {user?.user?.email === "mehak@gmail.com" ? (
                     <div className="flow-root">
                       <Link
                         to={"/dashboard"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
+                        className="-m-2 block p-2 font-medium text-blue"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
                         admin
@@ -110,7 +110,7 @@ function Navbar() {
                     <div className="flow-root">
                       <a
                         onClick={logout}
-                        className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                        className="-m-2 block p-2 font-medium text-blue cursor-pointer"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
                         Logout
@@ -120,7 +120,7 @@ function Navbar() {
                     <div className="flow-root">
                       <Link
                         to={"/aacount"}
-                        className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                        className="-m-2 block p-2 font-medium text-blue cursor-pointer"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
                         Account
@@ -130,7 +130,7 @@ function Navbar() {
                   <div className="flow-root">
                     <Link
                       to={"/"}
-                      className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                      className="-m-2 block p-2 font-medium text-blue cursor-pointer"
                     >
                       <FaUserCircle />{" "}
                     </Link>
@@ -145,7 +145,7 @@ function Navbar() {
                       className="block h-auto w-5 flex-shrink-0"
                     />
                     <span
-                      className="ml-3 block text-base font-medium text-gray-900"
+                      className="ml-3 block text-base font-medium text-blue"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
                       INDIA
@@ -161,13 +161,13 @@ function Navbar() {
 
       <header className="relative bg-white">
         <nav
-           aria-label="Top"
-  className="bg-gray-700 px-4 sm:px-6 lg:px-8 shadow-xl"
-  style={{
-    backgroundColor: mode === "dark" ? "#282c34" : "#f5f5f5",
-    color: mode === "dark" ? "white" : "",
-  }}
->
+          aria-label="Top"
+          className="bg-gray-700 px-4 sm:px-6 lg:px-8 shadow-xl"
+          style={{
+            backgroundColor: mode === "dark" ? "#282c34" : "#f5f5f5",
+            color: mode === "dark" ? "white" : "",
+          }}
+        >
           <div className="">
             <div className="flex h-16 items-center">
               <button
@@ -201,13 +201,18 @@ function Navbar() {
                 <Link to={"/"} className="flex">
                   <div className="flex ">
                     {/* <h1
-                      className=" text-2xl font-bold text-black  px-2 py-1 rounded"
+                      className=" text-2xl font-bold text-blue  px-2 py-1 rounded"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
                       Fusion
                     </h1> */}
-                    <img src={logo} width="300" height="300" alt="fusion_logo" style={{ marginBottom: '0px', marginTop: '35px' }} />
-
+                    <img
+                      src={logo}
+                      width="300"
+                      height="300"
+                      alt="fusion_logo"
+                      style={{ marginBottom: "0px", marginTop: "35px" }}
+                    />
                   </div>
                 </Link>
               </div>
@@ -216,33 +221,35 @@ function Navbar() {
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link
                     to={"/allproducts"}
-                    className="text-sm font-medium text-gray-900 "
+                    className="text-sm font-medium text-blue "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
                     All Products
                   </Link>
                   {user ? (
-                    <Link
-                      to={"/order"}
-                      className="text-sm font-medium text-gray-900 "
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      Order
-                    </Link>
+                    user.user?.email !== "mehak@gmail.com" ? (
+                      <Link
+                        to={"/order"}
+                        className="text-sm font-medium text-blue"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        Order
+                      </Link>
+                    ) : null
                   ) : (
                     <Link
                       to={"/account"}
-                      className="text-sm font-medium text-gray-900 "
+                      className="text-sm font-medium text-blue"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
                       Account
                     </Link>
                   )}
 
-                  {user?.user?.email === "kangmehak@gmail.com" ? (
+                  {user?.user?.email === "mehak@gmail.com" ? (
                     <Link
                       to={"/dashboard"}
-                      className="text-sm font-medium text-gray-900 "
+                      className="text-sm font-medium text-blue "
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
                       Admin
@@ -254,7 +261,7 @@ function Navbar() {
                   {user ? (
                     <a
                       onClick={logout}
-                      className="text-sm font-medium text-gray-900 cursor-pointer  "
+                      className="text-sm font-medium text-blue cursor-pointer  "
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
                       Logout
@@ -273,7 +280,7 @@ function Navbar() {
                 </div> */}
 
                 <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-900 ">
+                  <a href="#" className="flex items-center text-blue ">
                     {/* <img
                       className="inline-block w-10 h-10 rounded-full"
                       src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
@@ -301,7 +308,9 @@ function Navbar() {
                   </button>
                 </div>
 
-                {/* Cart */}
+                {user ? (
+                  user.user?.email !== "mehak@gmail.com" ? (
+                  
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link
                     to={"/cart"}
@@ -314,7 +323,7 @@ function Navbar() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 active:scale-90 hover:text-red-500"
+                      className="w-6 h-6 active:scale-90 hover:text-orange"
                     >
                       <path
                         strokeLinecap="round"
@@ -324,7 +333,7 @@ function Navbar() {
                     </svg>
 
                     <span
-                      className="ml-2 text-sm font-medium text-gray-900 group- "
+                      className="ml-2 text-sm font-medium text-blue group- "
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
                       {cartItems.length}
@@ -332,6 +341,11 @@ function Navbar() {
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>
                 </div>
+                  ) : null
+                ) : (
+                ""
+                )}
+
               </div>
             </div>
           </div>

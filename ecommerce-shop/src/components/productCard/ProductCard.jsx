@@ -39,7 +39,7 @@ function ProductCard() {
           >
             Featured Section
           </h1>
-          <div className="h-1 w-20 bg-red-400 rounded"></div>
+          <div className="h-1 w-20 bg-orange rounded"></div>
         </div>
 
         <div className="flex flex-wrap -m-4 ">
@@ -95,7 +95,7 @@ function ProductCard() {
                         <button
                           type="button"
                           onClick={() => addCart(item)}
-                          className="focus:outline-none bg-red-400 hover:bg-transparent hover:text-red-400 hover:border border-red-400 py-2 text-center rounded-lg text-white font-bold active:scale-90 w-full "
+                          className="focus:outline-none bg-orange hover:bg-transparent hover:text-orange hover:border border-orange py-2 text-center rounded-lg text-white font-bold active:scale-90 w-full "
                         >
                           Add To Cart
                         </button>

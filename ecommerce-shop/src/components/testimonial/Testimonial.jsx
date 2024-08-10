@@ -19,7 +19,7 @@ function Testimonial() {
             className="text-center text-2xl font-semibold mb-10"
             style={{ color: mode === "dark" ? "white" : "" }}
           >
-            What our <span className="text-red-500">customers</span> are saying
+            What our <span className="text-orange">customers</span> are saying
           </h2>
           <div className="flex flex-row gap-6 justify-center">
             {[
@@ -40,7 +40,7 @@ function Testimonial() {
                 text: "Your team has been doing an excellent job in handling multi-tasks, prioritizing tasks effectively, and delivering work in a turnaround time. Keep up the great work. I understand that certain tasks may involve specific procedures that can be confusing. However, thank you for your open-mindedness and resilience.",
                 name: "Fred Thomson",
                 position: "CEO & Founder",
-              }
+              },
             ].map((item, index) => (
               <div
                 key={index}
@@ -59,7 +59,7 @@ function Testimonial() {
                   >
                     {item.text}
                   </p>
-                  <span className="inline-block h-1 w-12 rounded bg-red-500 mt-6 mb-4" />
+                  <span className="inline-block h-1 w-12 rounded bg-orange mt-6 mb-4" />
                   <h2
                     style={{ color: mode === "dark" ? "#ff4162" : "#333" }}
                     className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase"

@@ -150,13 +150,30 @@ function myState(props) {
         setLoading(false);
       });
       setOrder(ordersArray);
-      console.log(ordersArray);
+      // console.log(ordersArray);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
+
+  // update order status
+
+  const updateOrderStatus = async (orderId, newStatus) => {
+    setLoading(true);
+    try {
+      const orderRef = doc(fireDB, "orders", orderId);
+      await setDoc(orderRef, { status: newStatus }, { merge: true });
+      toast.success("Order status updated successfully");
+      // getOrderData(); // Refresh order data
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
 
   const [user, setUser] = useState([]);
 
@@ -170,7 +187,7 @@ function myState(props) {
         setLoading(false);
       });
       setUser(usersArray);
-      console.log(usersArray);
+      // console.log(usersArray);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -209,6 +226,7 @@ function myState(props) {
         setFilterType,
         filterPrice,
         setFilterPrice,
+        updateOrderStatus,
       }}
     >
       {props.children}

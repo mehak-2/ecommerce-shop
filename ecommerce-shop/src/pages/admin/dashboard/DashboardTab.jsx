@@ -68,7 +68,12 @@ function DashboardTab() {
               <div className="  px-4 md:px-0 mb-16">
                 <h1
                   className=" text-center mb-5 text-3xl font-semibold underline"
-                  style={{ color: mode === "dark" ? "white" : "linear-gradient(to right, #f19257, #2f4fe1)" }}
+                  style={{
+                    color:
+                      mode === "dark"
+                        ? "white"
+                        : "linear-gradient(to right, #f19257, #2f4fe1)",
+                  }}
                 >
                   Product Details
                 </h1>
@@ -89,9 +94,9 @@ function DashboardTab() {
                   </button>
                 </div>
                 <div className="relative overflow-x-auto ">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-red-100 py-1 ">
+                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-orange py-1 ">
                     <thead
-                      className="text-xs   text-black uppercase  my-2 "
+                      className="text-xs   text-blue uppercase  my-2 "
                       style={{
                         backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
                         color: mode === "dark" ? "white" : "",
@@ -141,37 +146,37 @@ function DashboardTab() {
                             }}
                           >
                             <td
-                              className="px-6 py-4 text-black "
+                              className="px-6 py-4 text-blue "
                               style={{ color: mode === "dark" ? "white" : "" }}
                             >
                               {index + 1}.
                             </td>
                             <th
                               scope="row"
-                              className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                              className="px-6 py-4 font-medium text-blue whitespace-nowrap"
                             >
                               <img className="w-16" src={imageUrl} alt="img" />
                             </th>
                             <td
-                              className="px-6 py-4 text-black "
+                              className="px-6 py-4 text-blue "
                               style={{ color: mode === "dark" ? "white" : "" }}
                             >
                               {title}
                             </td>
                             <td
-                              className="px-6 py-4 text-black "
+                              className="px-6 py-4 text-blue "
                               style={{ color: mode === "dark" ? "white" : "" }}
                             >
                               ₹{price}
                             </td>
                             <td
-                              className="px-6 py-4 text-black "
+                              className="px-6 py-4 text-blue "
                               style={{ color: mode === "dark" ? "white" : "" }}
                             >
                               {category}
                             </td>
                             <td
-                              className="px-6 py-4 text-black "
+                              className="px-6 py-4 text-blue "
                               style={{ color: mode === "dark" ? "white" : "" }}
                             >
                               {date}
@@ -179,7 +184,7 @@ function DashboardTab() {
                             <td className="px-6 py-4">
                               <div className=" flex gap-2">
                                 <div
-                                  className=" flex gap-2 cursor-pointer text-black "
+                                  className=" flex gap-2 cursor-pointer text-blue "
                                   style={{
                                     color: mode === "dark" ? "white" : "",
                                   }}
@@ -243,9 +248,9 @@ function DashboardTab() {
 
                 {order.map((allorder, index) => {
                   return (
-                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                       <thead
-                        className="text-xs text-black uppercase bg-gray-200 "
+                        className="text-xs text-blue uppercase bg-gray-200 "
                         style={{
                           backgroundColor:
                             mode === "dark" ? "rgb(46 49 55)" : "",
@@ -265,9 +270,7 @@ function DashboardTab() {
                           <th scope="col" className="px-6 py-3">
                             Price
                           </th>
-                          <th scope="col" className="px-6 py-3">
-                            Category
-                          </th>
+
                           <th scope="col" className="px-6 py-3">
                             Name
                           </th>
@@ -286,6 +289,9 @@ function DashboardTab() {
                           <th scope="col" className="px-6 py-3">
                             Date
                           </th>
+                          {/* <th scope="col" className="px-6 py-3">
+                            Order Status
+                          </th> */}
                         </tr>
                       </thead>
                       {allorder.cartItems.map((item, index) => {
@@ -308,7 +314,7 @@ function DashboardTab() {
                               }}
                             >
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -317,7 +323,7 @@ function DashboardTab() {
                               </td>
                               <th
                                 scope="row"
-                                className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                                className="px-6 py-4 font-medium text-blue whitespace-nowrap"
                               >
                                 <img
                                   className="w-16"
@@ -326,7 +332,7 @@ function DashboardTab() {
                                 />
                               </th>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -334,24 +340,16 @@ function DashboardTab() {
                                 {title}
                               </td>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
                               >
                                 ₹{price}
                               </td>
-                              <td
-                                className="px-6 py-4 text-black "
-                                style={{
-                                  color: mode === "dark" ? "white" : "",
-                                }}
-                              >
-                                {category}
-                              </td>
 
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -359,7 +357,7 @@ function DashboardTab() {
                                 {allorder.addressInfo.name}
                               </td>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -367,7 +365,7 @@ function DashboardTab() {
                                 {allorder.addressInfo.address}
                               </td>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -375,7 +373,7 @@ function DashboardTab() {
                                 {allorder.addressInfo.pincode}
                               </td>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -383,7 +381,7 @@ function DashboardTab() {
                                 {allorder.addressInfo.phoneNumber}
                               </td>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
@@ -391,13 +389,28 @@ function DashboardTab() {
                                 {allorder.email}
                               </td>
                               <td
-                                className="px-6 py-4 text-black "
+                                className="px-6 py-4 text-blue "
                                 style={{
                                   color: mode === "dark" ? "white" : "",
                                 }}
                               >
                                 {allorder.date}
                               </td>
+                              {/* <td
+                                className="px-6 py-4 text-blue "
+                                style={{
+                                  color: mode === "dark" ? "white" : "",
+                                }}
+                              >
+                                <select name="status" id="">
+                                  <option value="" disabled>
+                                    -status-
+                                  </option>
+                                  <option value="">Order Placed</option>
+                                  <option value="">Shipped</option>
+                                  <option value="">Delivered</option>
+                                </select>
+                              </td> */}
                             </tr>
                           </tbody>
                         );
@@ -419,7 +432,7 @@ function DashboardTab() {
                 </h1>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead
-                    className="text-xs text-black uppercase bg-gray-200 "
+                    className="text-xs text-blue uppercase bg-gray-200 "
                     style={{
                       backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
                       color: mode === "dark" ? "white" : "",
@@ -454,25 +467,25 @@ function DashboardTab() {
                           }}
                         >
                           <td
-                            className="px-6 py-4 text-black "
+                            className="px-6 py-4 text-blue "
                             style={{ color: mode === "dark" ? "white" : "" }}
                           >
                             {index + 1}.
                           </td>
                           <td
-                            className="px-6 py-4 text-black "
+                            className="px-6 py-4 text-blue "
                             style={{ color: mode === "dark" ? "white" : "" }}
                           >
                             {name}
                           </td>
                           <td
-                            className="px-6 py-4 text-black "
+                            className="px-6 py-4 text-blue "
                             style={{ color: mode === "dark" ? "white" : "" }}
                           >
                             {email}
                           </td>
                           <td
-                            className="px-6 py-4 text-black "
+                            className="px-6 py-4 text-blue "
                             style={{ color: mode === "dark" ? "white" : "" }}
                           >
                             {uid}
